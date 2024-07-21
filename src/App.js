@@ -5,6 +5,7 @@ import shoesData from "./shoesData";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import Detail from "./routes/Detail.js";
 //import About from './routes/About.js'
+import axios from "axios";
 
 function App() {
   let [shoes] = useState(shoesData);
@@ -32,6 +33,20 @@ function App() {
               <div className="main-bg"></div>
 
               <div className="container">
+                <button
+                  onClick={() => {
+                    axios
+                      .get("https://codingapple1.github.io/shop/data2.json")
+                      .then((결과) => {
+                        console.log(결과.data);
+                      })
+                      .catch(() => {
+                        console.log("실패함");
+                      });
+                  }}
+                >
+                  버튼
+                </button>
                 <div className="row">
                   {shoes.map((a, i) => {
                     return <Card shoes={shoes[i]} i={i + 1}></Card>;
@@ -65,6 +80,7 @@ function Card(props) {
       />
       <h4>{props.shoes.title}</h4>
       <p>{props.shoes.price}</p>
+      {/* //TODO: ajax로 불러온 데이터로 값 세팅 하기, 버튼 눌렀을때 추가 이벤트 */}
     </div>
   );
 }
